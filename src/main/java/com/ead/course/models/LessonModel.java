@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "TB_LEASSON")
+@Table(name = "TB_LESSONS")
 public class LessonModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,7 +33,7 @@ public class LessonModel implements Serializable {
     private LocalDateTime creationDate;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ModuleModel module;
 
     public UUID getLeassonId() {
