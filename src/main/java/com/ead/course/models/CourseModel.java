@@ -11,6 +11,7 @@ import org.hibernate.annotations.FetchMode;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 import java.util.UUID;
@@ -33,11 +34,11 @@ public class CourseModel implements Serializable {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(nullable = false)
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(nullable = false)
-    private LocalTime lastUpdate;
+    private LocalDateTime lastUpdate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -82,19 +83,19 @@ public class CourseModel implements Serializable {
   this.description = description;
  }
 
- public LocalDate getCreationDate() {
+ public LocalDateTime getCreationDate() {
   return creationDate;
  }
 
- public void setCreationDate(LocalDate creationDate) {
+ public void setCreationDate(LocalDateTime creationDate) {
   this.creationDate = creationDate;
  }
 
- public LocalTime getLastUpdate() {
+ public LocalDateTime getLastUpdate() {
   return lastUpdate;
  }
 
- public void setLastUpdate(LocalTime lastUpdate) {
+ public void setLastUpdate(LocalDateTime lastUpdate) {
   this.lastUpdate = lastUpdate;
  }
 
