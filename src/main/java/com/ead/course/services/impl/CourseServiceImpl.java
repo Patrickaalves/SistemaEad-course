@@ -30,38 +30,6 @@ public class CourseServiceImpl implements CourseService{
         this.lessonRepository = lessonRepository;
     }
 
-    @Transactional
-    @Override
-    public void delete(CourseModel courseModel) {
-        List<ModuleModel> modules = moduleRepository.findAllModulesIntoCourse(courseModel.getCourseId());
-        if (!modules.isEmpty()) {
-            for (ModuleModel module : modules) {
-                List<LessonModel> lessonModelList = lessonRepository.finaAllLessonsIntoModule(module.getModuleId());
-                if (!lessonModelList.isEmpty()) {
-                    lessonRepository.deleteAll(lessonModelList);
-                }
-            }
-            moduleRepository.deleteAll(modules);
-        }
-        courseRepository.delete(courseModel);
-    }
-
-    @Override
-    public CourseModel save(CourseDto courseDto) {
-        var courseModel = new CourseModel();
-        BeanUtils.copyProperties(courseDto, courseModel);
-
-        courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
-        courseModel.setLastUpdate(LocalDateTime.now(ZoneId.of("UTC")));
-
-        return courseRepository.save(courseModel);
-    }
-
-    @Override
-    public Boolean existByName(String courseName) {
-        return courseRepository.existsByName(courseName);
-    }
-
     @Override
     public List<CourseModel> findAll() {
         return courseRepository.findAll();
@@ -77,9 +45,41 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
+    public Boolean existByName(String courseName) {
+        return courseRepository.existsByName(courseName);
+    }
+
+    @Override
+    public CourseModel save(CourseDto courseDto) {
+        var courseModel = new CourseModel();
+        BeanUtils.copyProperties(courseDto, courseModel);
+
+        courseModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
+        courseModel.setLastUpdate(LocalDateTime.now(ZoneId.of("UTC")));
+
+        return courseRepository.save(courseModel);
+    }
+
+    @Override
     public CourseModel update(CourseDto courseDto, CourseModel courseModel) {
         BeanUtils.copyProperties(courseDto, courseModel);
         courseModel.setLastUpdate(LocalDateTime.now(ZoneId.of("UTC")));
         return courseRepository.save(courseModel);
+    }
+
+    @Transactional
+    @Override
+    public void delete(CourseModel courseModel) {
+        List<ModuleModel> modules = moduleRepository.findAllModulesIntoCourse(courseModel.getCourseId());
+        if (!modules.isEmpty()) {
+            for (ModuleModel module : modules) {
+                List<LessonModel> lessonModelList = lessonRepository.finaAllLessonsIntoModule(module.getModuleId());
+                if (!lessonModelList.isEmpty()) {
+                    lessonRepository.deleteAll(lessonModelList);
+                }
+            }
+            moduleRepository.deleteAll(modules);
+        }
+        courseRepository.delete(courseModel);
     }
 }

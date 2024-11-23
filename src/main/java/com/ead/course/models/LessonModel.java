@@ -17,7 +17,7 @@ public class LessonModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID leassonId;
+    private UUID lessonId;
 
     @Column(nullable = false, unique = true, length = 150)
     private String title;
@@ -36,12 +36,12 @@ public class LessonModel implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ModuleModel module;
 
-    public UUID getLeassonId() {
-        return leassonId;
+    public UUID getlessonId() {
+        return lessonId;
     }
 
-    public void setLeassonId(UUID leassonId) {
-        this.leassonId = leassonId;
+    public void setlessonId(UUID lessonId) {
+        this.lessonId = lessonId;
     }
 
     public String getTitle() {

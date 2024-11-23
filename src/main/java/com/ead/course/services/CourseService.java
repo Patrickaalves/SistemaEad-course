@@ -8,10 +8,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CourseService {
-    void delete(CourseModel courseModel);
     CourseModel save(CourseDto courseDto);
-    Boolean existByName(String courseName);
     List<CourseModel> findAll();
     Optional<CourseModel> findById(UUID courseId);
     CourseModel update(CourseDto courseDto, CourseModel courseModel);
+    void delete(CourseModel courseModel);
+    Boolean existByName(String courseName);
 }
