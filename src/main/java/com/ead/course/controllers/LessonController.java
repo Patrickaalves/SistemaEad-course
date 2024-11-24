@@ -32,7 +32,7 @@ public class LessonController {
     @PostMapping("/modules/{moduleId}/lessons")
     public ResponseEntity<Object> saveLesson(@PathVariable(value = "moduleId") UUID moduleId,
                                              @RequestBody @Valid LessonDto lessonDto) {
-        logger.debug("POST saveLesson lessonRecordDto received {} ", lessonRecordDto);
+        logger.debug("POST saveLesson lessonRecordDto received {} ", lessonDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(lessonService.save(lessonDto, moduleService.findById(moduleId).get()));
     }
